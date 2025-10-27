@@ -1,0 +1,55 @@
+/*
+    Index Stylesheets for the PokeView Application
+    @author jhotiori
+*/
+
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bytesized&display=swap');
+
+/* BOXICONS */
+@import url('https://unpkg.com/boxicons@latest/css/boxicons.min.css');
+
+/* IMPORTS */
+@import "./global.css";
+@import "./header.css";
+@import "./footer.css";
+@import "./buttons.css";
+@import "./app.css";
+
+/* ROOT */
+:root {
+    --font-var: 'Inter', 'Geist', 'Segoe UI', sans-serif;
+    --font-pixel: 'Bytesized', sans-serif;
+    --anim-style: ease;
+
+    --bg-1: hsl(0, 0%, 0%);
+    --bg-2: hsl(0, 0%, 10%);
+    --bg-3: hsl(0, 0%, 20%);
+    --bg-4: hsl(0, 0%, 30%);
+
+    --bg-light-1: hsl(0, 0%, 90%);
+    --bg-light-2: hsl(0, 0%, 80%);
+    --bg-light-3: hsl(0, 0%, 70%);
+    --bg-light-4: hsl(0, 0%, 50%);
+
+    --text-1: hsl(0, 0%, 90%);
+    --text-2: hsl(0, 0%, 50%);
+    --text-3: hsl(0, 0%, 30%);
+
+    --border-1: hsla(0, 0%, 100%, 0.5);
+    --border-2: hsla(0, 0%, 100%, 0.25);
+}
+
+body {
+    background: var(--bg-1);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5vh 10vw;
+}

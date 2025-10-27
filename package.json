@@ -1,0 +1,22 @@
+{
+  "devDependencies": {
+    "@biomejs/biome": "latest",
+    "@types/bun": "latest",
+    "browserslist": "latest",
+    "caniuse-lite": "latest",
+    "vite": "latest",
+    "vite-plugin-lightningcss": "latest"
+  },
+  "dependencies": {
+    "lightningcss": "latest",
+    "dayjs": "latest",
+    "mitt": "latest",
+    "nanoid": "latest",
+    "tiny-invariant": "latest",
+    "pokeapi-js-wrapper": "latest"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  }
+}

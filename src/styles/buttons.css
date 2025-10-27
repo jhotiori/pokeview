@@ -1,0 +1,38 @@
+/*
+    Button classes for the PokeView Application
+    @author jhotiori
+*/
+
+.button-ghost {
+    padding: 0.25rem 1rem;
+    border: 2px solid var(--text-3);
+    color: var(--text-3);
+
+    border-radius: 0.5rem;
+    background: none;
+    cursor: pointer;
+
+    transition: border-color 0.2s var(--anim-style), color 0.2s var(--anim-style);
+    will-change: border-color, color;
+}
+
+.button-ghost:hover {
+    border-color: var(--text-2);
+    color: var(--text-2);
+}
+
+.button-white {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+    background: var(--bg-light-1);
+    color: black;
+
+    transition: background 0.2s var(--anim-style);
+    will-change: background;
+}
+
+.button-white:hover {
+    background: var(--bg-light-3);
+}

@@ -1,0 +1,39 @@
+/*
+    Footer stylesheets for the PokIndex Application
+    @author jhotiori
+*/
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding-block: 3rem;
+    width: 100%;
+
+    background: var(--bg-1);
+    border-top: 2px solid var(--border-1);
+}
+
+footer > #title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 2rem;
+    color: var(--text-2);
+}
+
+footer > #subtitle {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-3);
+    margin-bottom: 1rem;
+}
+
+footer > #redirects {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}

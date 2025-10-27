@@ -1,0 +1,32 @@
+/*
+    Global stylesheets for the PokeView Application
+    @author jhotiori
+*/
+
+* {
+    font-family: 'Inter', 'Geist', 'Segoe UI', sans-serif;
+    font-weight: 500;
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    box-shadow: none;
+    border: none;
+
+    background: none;
+    outline: none;
+}
+
+html, body, main {
+    height: 100%;
+    width: 100%;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}

@@ -1,0 +1,133 @@
+/*
+    App Stylesheets for the PokeView Application
+    @author jhotiori
+*/
+
+.app {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.app > #banner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    width: 100%;
+    gap: 0.25rem;
+    background: hsla(0, 0%, 100%, 0.1);
+}
+
+.app > #banner > #title {
+    font-weight: 900;
+    font-size: 7rem;
+    line-height: 7rem;
+    color: var(--text-1);
+}
+
+.app > #banner > #subtitle {
+    font-weight: 500;
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+    color: var(--text-2);
+    margin-bottom: 0.75rem;
+}
+
+.app > #banner > #container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 70%;
+    gap: 1rem;
+}
+
+.app > #banner > #container > #searchbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    height: 100%;
+    width: 60%;
+
+    background: var(--bg-light-1);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    gap: 0.5rem;
+}
+
+.app > #banner > #container > #searchbar > i {
+    font-size: 2rem;
+    color: black;
+}
+
+.app > #banner > #container > #searchbar > input {
+    height: 95%;
+    width: 95%;
+    color: black;
+
+    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+}
+
+.app > #banner > #container > #filter-toggle {
+    font-size: 1.5rem;
+    padding-inline: 0.75rem;
+}
+
+.app > #banner > #container > #filter-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    transform: translateX(-1rem);
+    opacity: 0;
+    gap: 0.5rem;
+
+    transition: transform 0.2s var(--anim-style), opacity 0.2s var(--anim-style);
+    will-change: transform, opacity;
+}
+
+.app > #banner > #container > #filter-menu.active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.app > #banner > #container > #filter-menu > button {
+    font-size: 0.9rem;
+    background: var(--bg-light-1);
+    border-radius: 1rem;
+
+    transition: background 0.2s var(--anim-style);
+    will-change: background;
+}
+
+.app > #banner > #container > #filter-menu > button:hover {
+    background: var(--bg-light-3);
+}
+
+.app > #viewport {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: hsla(0, 0%, 100%, 0.15);
+    height: 100%;
+    width: 100%;
+}
+
+.app > #viewport > #pokemons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+
+    height: 100%;
+    width: 70%;
+    background: hsla(0, 0%, 100%, 0.20);
+}

@@ -1,0 +1,44 @@
+/*
+    Header stylesheets for the PokIndex Application
+    @author jhotiori
+*/
+
+header {
+    height: 75px;
+    padding: 0 2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: var(--bg-1);
+    border-bottom: 2px solid var(--border-1);
+}
+
+header > #title {
+    font-family: var(--font-pixel);
+    font-weight: 800;
+    font-size: 2.5rem;
+    user-select: none;
+    color: var(--text-1);
+}
+
+header > #icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+header > #icons > i {
+    font-size: 2rem;
+    color: var(--text-1);
+    cursor: pointer;
+
+    transition: color 0.2s var(--anim-style);
+    will-change: color;
+}
+
+header > #icons > i:hover {
+    color: var(--text-3);
+}

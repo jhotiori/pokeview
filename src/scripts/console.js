@@ -11,23 +11,23 @@ export class Console {
 		invariant(context, "Expected a console context (e.g. 'index.js'), got nothing!");
 
 		this.context = context;
-		this.styles = styles !== undefined ? {...styles, "default": "color: inherit;"} : {"default": "color: inherit;"};
+		this.styles = styles !== undefined ? { ...styles, default: "color: inherit;" } : { default: "color: inherit;" };
 	}
 
 	addStyle(name, css) {
-		invariant(name, "Expected name to be a string!")
-		invariant(css, "Expected css to be a string!")
-		this.styles[name] = css
+		invariant(name, "Expected name to be a string!");
+		invariant(css, "Expected css to be a string!");
+		this.styles[name] = css;
 	}
 
 	deleteStyle(name) {
-		invariant(name, "Expected name to be a string!")
-		this.styles[name] = undefined
+		invariant(name, "Expected name to be a string!");
+		this.styles[name] = undefined;
 	}
 
 	getStyle(name) {
-		invariant(name, "Expected name to be a string!")
-		return this.styles[name]
+		invariant(name, "Expected name to be a string!");
+		return this.styles[name];
 	}
 
 	_format(message) {
@@ -38,22 +38,22 @@ export class Console {
 
 	log(message = "<no message>", style) {
 		const stylizer = this.getStyle(style || "default");
-		console.log(this._format(message), stylizer)
+		console.log(this._format(message), stylizer);
 	}
 
 	info(message = "<no message>") {
 		const stylizer = this.getStyle("info") || this.getStyle("default");
-		console.log(this._format(message), stylizer)
+		console.log(this._format(message), stylizer);
 	}
 
 	warn(message = "<no message>") {
 		const stylizer = this.getStyle("warn") || this.getStyle("default");
-		console.warn(this._format(message), stylizer)
+		console.warn(this._format(message), stylizer);
 	}
 
 	error(message = "<no message>") {
 		const stylizer = this.getStyle("error") || this.getStyle("default");
-		console.error(this._format(message), stylizer)
+		console.error(this._format(message), stylizer);
 	}
 }
 

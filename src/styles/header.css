@@ -5,6 +5,7 @@
 
 header {
     height: 75px;
+    width: 100%;
     padding: 0 2rem;
 
     display: flex;
@@ -41,4 +42,23 @@ header > #icons > i {
 
 header > #icons > i:hover {
     color: var(--text-3);
+}
+
+@media (max-width: 474px) {
+    header {
+        height: 50px;
+        padding: 0 1rem;
+    }
+
+    header > #title {
+        font-size: 1.5rem;
+    }
+
+    header > #icons {
+        gap: 0.1rem;
+    }
+
+    header > #icons > i {
+        font-size: 1rem;
+    }
 }

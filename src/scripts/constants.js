@@ -5,4 +5,5 @@
 
 export const Constants = {
 	DATABASE_KEY: "pokeview@pokemons",
+    FAVORITES_KEY: "pokeview@favorites",
 };

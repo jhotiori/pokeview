@@ -21,6 +21,9 @@ footer > #title {
     font-weight: 700;
     line-height: 2rem;
     color: var(--text-2);
+    white-space: normal;
+    overflow-wrap: break-word;
+    text-align: center;
 }
 
 footer > #subtitle {
@@ -28,6 +31,9 @@ footer > #subtitle {
     font-weight: 500;
     color: var(--text-3);
     margin-bottom: 1rem;
+    white-space: normal;
+    overflow-wrap: break-word;
+    text-align: center;
 }
 
 footer > #redirects {
@@ -36,4 +42,29 @@ footer > #redirects {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+}
+
+footer > #redirects > a {
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+@media (max-width: 476px) {
+    footer {
+        padding-block: 0rem;
+    }
+
+    footer > #title {
+        font-size: 0.8rem;
+        line-height: 1rem;
+    }
+
+    footer > #subtitle {
+        font-size: 0.6rem;
+        margin-bottom: 0.5rem;
+    }
+
+    footer > #redirects {
+        flex-direction: column;
+    }
 }

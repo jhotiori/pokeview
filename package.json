@@ -10,8 +10,6 @@
   "dependencies": {
     "lightningcss": "latest",
     "dayjs": "latest",
-    "mitt": "latest",
-    "nanoid": "latest",
     "tiny-invariant": "latest",
     "pokeapi-js-wrapper": "latest"
   },

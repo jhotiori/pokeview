@@ -40,6 +40,7 @@
 
     --border-1: hsla(0, 0%, 100%, 0.5);
     --border-2: hsla(0, 0%, 100%, 0.25);
+    --border-3: hsla(0, 0%, 100%, 0.1);
 }
 
 body {
@@ -51,5 +52,21 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 5vh 10vw;
+    padding: 2rem;
+}
+
+@media (min-width: 700px) {
+    main {
+        padding: 2rem 8rem;
+    }
+}
+
+@media (max-width: 476px) {
+    main {
+        padding: 1rem;
+    }
+}
+
+::-webkit-scrollbar {
+    display: none;
 }

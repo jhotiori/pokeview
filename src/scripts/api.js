@@ -18,7 +18,7 @@ export const PokeAPI = new Pokedex({
 	timeout: 5000,
 });
 
-let Cache = {}
+let Cache = {};
 
 export const GetPokemonByName = async (name, database) => {
 	invariant(name, "Expected a Pokemon name!");
@@ -32,7 +32,7 @@ export const GetPokemonByName = async (name, database) => {
 	try {
 		const value = await PokeAPI.getPokemonByName(key);
 		invariant(value, `Empty response from PokeAPI for '${name}'!`);
-		Cache[key] = value
+		Cache[key] = value;
 		return value;
 	} catch (err) {
 		PokeConsole.warn(`Failed to fetch Pokémon '${name}' from the PokeAPI!\nAttached Error: ${err}`);

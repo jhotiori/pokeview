@@ -8,10 +8,11 @@
     "vite-plugin-lightningcss": "latest"
   },
   "dependencies": {
-    "lightningcss": "latest",
     "dayjs": "latest",
-    "tiny-invariant": "latest",
-    "pokeapi-js-wrapper": "latest"
+    "lightningcss": "latest",
+    "lru-cache": "latest",
+    "pokeapi-js-wrapper": "latest",
+    "tiny-invariant": "latest"
   },
   "scripts": {
     "dev": "vite",

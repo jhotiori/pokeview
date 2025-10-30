@@ -1,0 +1,103 @@
+/*
+    Cards stylesheet for the PokeView Application
+    @author jhotiori
+*/
+
+.pokemon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    position: relative;
+
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+
+    height: 50%;
+    width: 300px;
+    transform: scale(1);
+
+    background: var(--bg-2);
+    border: 2px solid var(--border-2);
+    border-radius: 1rem;
+
+    transition: border-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+    will-change: border-color, transform, opacity;
+}
+
+.pokemon-card:hover {
+    border-color: var(--border-1);
+    transform: scale(1.02);
+}
+
+/* Image */
+.pokemon-card img.pokemon-image {
+    height: 80%;
+    width: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.pokemon-card img[src*="question.png"] {
+    object-fit: contain;
+    image-rendering: pixelated;
+    padding: 1rem;
+    opacity: 0.5;
+}
+
+/* Specs and ID */
+.pokemon-card .pokemon-specs {
+    font-weight: 800;
+    color: var(--text-2);
+    position: absolute;
+    left: 0.5rem;
+    top: 0.5rem;
+}
+
+.pokemon-card .pokemon-id {
+    font-weight: 800;
+    color: var(--text-2);
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+}
+
+/* Favorite */
+.pokemon-card .pokemon-favorite {
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-1);
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    transition: color 0.2s ease;
+    will-change: color;
+}
+
+.pokemon-card .pokemon-favorite.bxs-heart {
+    color: hotpink;
+}
+
+/* Description */
+.pokemon-card .pokemon-description {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    height: 30%;
+    width: 100%;
+    padding: 0 1rem;
+
+    background: var(--bg-3);
+    border-top: 2px solid var(--border-3);
+}
+
+.pokemon-card .pokemon-description .pokemon-name {
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: var(--text-1);
+    text-align: center;
+}

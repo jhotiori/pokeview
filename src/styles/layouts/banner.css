@@ -1,0 +1,278 @@
+/*
+    ~ banner.css
+    Stylesheets for the Banner Layout
+    @author jhotiori
+*/
+
+main #banner {
+	display: flex;
+	align-items: stretch;
+	justify-content: center;
+
+	height: 40vh;
+	width: 100%;
+	gap: 1rem;
+}
+
+main #banner #banner__pokemon {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: flex-start;
+
+	flex: 5;
+	overflow: hidden;
+
+	background-color: var(--bg-2);
+	border: 2px solid var(--br-2);
+	border-radius: 1rem;
+}
+
+main #banner #banner__pokemon #sprite {
+	height: 80%;
+	max-height: 80%;
+
+	object-fit: contain;
+	image-rendering: pixelated;
+	background: radial-gradient(var(--bg-1), var(--bg-2));
+}
+
+main #banner #banner__pokemon #information {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	flex: 1;
+	padding: 0 2rem;
+
+	background-color: var(--bg-3);
+	border-top: 2px solid var(--br-2);
+}
+
+main #banner #banner__pokemon #information #left,
+main #banner #banner__pokemon #information #right {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex: 0 1 auto;
+	gap: 1rem;
+}
+
+main #banner #banner__pokemon #information #left #name {
+	font-family: var(--font-title);
+	font-weight: var(--weight-bold);
+	font-size: var(--font-size-m);
+	color: var(--text-1);
+}
+
+main #banner #banner__pokemon #information #left #timer {
+	font-family: var(--font-title);
+	font-weight: var(--weight-medium);
+	font-size: var(--font-size-s);
+	color: var(--text-2);
+}
+
+main #banner #banner__pokemon #information #left #timer::before {
+	content: "|";
+	margin-inline: 0 1rem;
+	min-width: 0;
+
+	font-family: var(--font-title);
+	font-weight: var(--weight-medium);
+	font-size: var(--font-size-xs);
+	color: var(--text-3);
+}
+
+main #banner #banner__pokemon #information #right #types {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+main #banner #banner__pokemon #information #right #types p {
+	font-family: var(--font-sans);
+	font-weight: var(--weight-medium);
+	font-size: var(--font-size-s);
+
+	background-color: var(--bg-1);
+	color: var(--text-3);
+
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+}
+
+main #banner #banner__pokemon #information #right #heart {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+
+	font-size: var(--font-size-sxx);
+	color: var(--text-3);
+
+	transition: color var(--transition-m);
+	will-change: color;
+}
+
+main #banner #banner__pokemon #information #right #heart.favorited {
+	color: rgb(255, 70, 70);
+}
+
+main #banner #banner__pokemon #information #right #heart:not(.favorited):hover {
+	color: var(--text-1);
+}
+
+main #banner #banner__stats {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: column;
+
+	flex: 1;
+	gap: 1rem;
+	padding: 1rem;
+
+	background: radial-gradient(var(--bg-1), var(--bg-2));
+	border: 2px solid var(--br-2);
+	border-radius: 1rem;
+}
+
+main #banner #banner__stats #title {
+	font-family: var(--font-title);
+	font-weight: var(--weight-bold);
+	font-size: var(--font-size-m);
+	color: var(--text-2);
+	text-align: center;
+}
+
+main #banner #banner__stats #list {
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-direction: column;
+}
+
+main #banner #banner__stats #list li {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+
+	text-overflow: ellipsis;
+	flex-wrap: nowrap;
+
+	width: 100%;
+	max-width: 100%;
+	line-height: 150%;
+}
+
+main #banner #banner__stats #list li #icon,
+main #banner #banner__stats #list li #label,
+main #banner #banner__stats #list li #value {
+	font-family: var(--font-sans);
+	font-weight: var(--weight-medium);
+	font-size: var(--font-size-sx);
+	color: var(--text-3);
+}
+
+main #banner #banner__stats #list li #icon {
+	font-size: var(--font-size-s);
+	margin-right: 0.25rem;
+}
+
+main #banner #banner__stats #list li #label {
+	flex: 0 1 auto;
+
+}
+
+main #banner #banner__stats #list li #value {
+
+
+	font-weight: var(--weight-bold);
+	font-size: var(--font-size-sx);
+	color: var(--text-2);
+	margin-left: 0.25rem;
+}
+
+@media (max-width: 560px) {
+	main #banner {
+		flex-direction: column;
+		flex-wrap: wrap;
+		height: auto;
+		width: auto;
+	}
+
+	main #banner #banner__pokemon {
+		flex-wrap: wrap;
+		height: auto;
+		width: auto;
+	}
+
+	main #banner #banner__pokemon #information {
+		flex-direction: column;
+		padding: 0 1rem;
+	}
+
+	main #banner #banner__pokemon #information #left,
+	main #banner #banner__pokemon #information #right {
+		gap: 0.5rem;
+	}
+
+	main #banner #banner__pokemon #information #left #name {
+		font-size: var(--font-size-sxx);
+	}
+
+	main #banner #banner__pokemon #information #right #types p {
+		font-size: var(--font-size-xs);
+		padding: 0.25rem 0.5rem;
+	}
+
+	main #banner #banner__pokemon #information #right #heart {
+		font-size: var(--font-size-s);
+	}
+
+	main #banner #banner__stats {
+		height: auto;
+		width: auto;
+	}
+}
+
+@media (max-width: 280px) {
+	main #banner #banner__pokemon #information {
+		flex-direction: column;
+		padding: 0;
+	}
+
+	main #banner #banner__pokemon #information #right #types {
+		flex-wrap: nowrap;
+	}
+
+	main #banner #banner__pokemon #information #right #types p {
+		font-size: var(--font-size-xxs);
+	}
+
+	main #banner #banner__pokemon #information #left #name {
+		font-size: var(--font-size-s);
+	}
+
+	main #banner #banner__stats #title {
+		font-size: var(--font-size-sx);
+	}
+
+	main #banner #banner__stats #list li {
+		line-height: 100%;
+	}
+
+	main #banner #banner__stats #list li #icon {
+		font-size: var(--font-size-xs);
+	}
+
+	main #banner #banner__stats #list li #label {
+		font-size: var(--font-size-xs);
+	}
+
+	main #banner #banner__stats #list li #value {
+		font-size: var(--font-size-xs);
+	}
+}

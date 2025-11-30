@@ -1,0 +1,110 @@
+/*
+    ~ view.css
+    Stylesheets for the View Layout
+    @author jhotiori
+*/
+
+main #view {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	position: relative;
+
+	flex-wrap: nowrap;
+	scroll-behavior: smooth;
+
+	overflow-x: scroll;
+	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
+
+	height: 30vh;
+	width: 100%;
+	padding: 0.5rem;
+	gap: 0.5rem;
+
+	transition: backdrop-filter var(--transition-m);
+	will-change: backdrop-filter;
+}
+
+main #view::-webkit-scrollbar {
+	height: 0.3rem;
+}
+
+main #view::-webkit-scrollbar-track {
+	background: var(--bg-1);
+	border-radius: 2rem;
+}
+
+main #view::-webkit-scrollbar-thumb {
+	background: var(--text-4);
+	border-radius: 2rem;
+}
+
+main #view #loader {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+
+	z-index: 999;
+	inset: 0;
+
+	background: rgba(0, 0, 0, 0.7);
+	animation: Fade-In 0.2s ease-out forwards;
+}
+
+main #view #loader #icon {
+	height: 5rem;
+	width: 5rem;
+
+	transition: transform var(--transition-m), filter var(--transition-m);
+	will-change: transform, filter;
+	animation: Spin 1s ease-out infinite, Blur-Pulse 1s ease-out infinite;
+}
+
+main #view #message {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+
+	width: 100%;
+	height: 100%;
+	text-align: center;
+
+	opacity: 0;
+	animation: Fade-In 0.2s forwards;
+}
+
+main #view #message #title {
+	font-family: var(--font-title);
+	font-size: var(--font-size-mxx);
+	font-weight: var(--weight-bold);
+	color: var(--text-1);
+}
+
+main #view #message #subtitle {
+	font-family: var(--font-title);
+	font-size: var(--font-size-sx);
+	font-weight: var(--weight-medium);
+	color: var(--text-3);
+}
+
+@media (max-width: 560px) {
+	main #view {
+		height: 50vh;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		overflow-x: hidden;
+		overflow-y: scroll;
+	}
+
+	main #view #message #title {
+		font-size: var(--font-size-sxx);
+	}
+
+	main #view #message #subtitle {
+		font-size: var(--font-size-xs);
+	}
+}

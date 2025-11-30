@@ -1,0 +1,70 @@
+/*
+    ~ header.css
+    Header Layout Stylesheets
+    @author jhotiori
+*/
+
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	height: 70px;
+	width: 100%;
+	padding: 0 2rem;
+
+	background-color: var(--bg-2);
+	border-bottom: 2px solid var(--br-2);
+}
+
+header #header__title {
+	font-family: var(--font-brand);
+	font-weight: var(--weight-bold);
+	font-size: var(--font-size-m);
+	color: var(--text-1);
+	user-select: none;
+}
+
+header #header__icons {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 0.5rem;
+}
+
+header #header__icons i {
+	font-size: var(--font-size-sxx);
+	color: var(--text-1);
+	cursor: pointer;
+
+	transition: color var(--transition-m);
+	will-change: color;
+}
+
+header #header__icons i:hover {
+	color: var(--text-4);
+}
+
+@media (max-width: 560px) {
+	header {
+		padding: 0 1rem;
+	}
+
+	header #header__title {
+		font-size: var(--font-size-sxx);
+	}
+
+	header #header__icons i {
+		font-size: var(--font-size-sx);
+	}
+}
+
+@media (max-width: 280px) {
+	header #header__title {
+		font-size: var(--font-size-sx);
+	}
+
+	header #header__icons i {
+		font-size: var(--font-size-s);
+	}
+}

@@ -1,0 +1,97 @@
+/*
+    ~ sidebar.css
+    Stylesheets for the Sidebar Layout
+    @author jhotiori
+*/
+
+#sidebar {
+    position: fixed;
+    z-index: 99999999;
+    inset: 0;
+}
+
+#sidebar #sidebar__overlay {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(0.25rem);
+
+    opacity: 1;
+    inset: 0;
+
+    transition: opacity var(--transition-m);
+    will-change: opacity;
+}
+
+#sidebar #sidebar__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: absolute;
+
+    height: 100vh;
+    width: 50vw;
+
+    top: 0;
+    right: 0;
+
+    background: linear-gradient(var(--bg-1), var(--bg-2));
+    border-left: 2px solid var(--br-3);
+    border-radius: 2rem 0 0 2rem;
+
+    padding: 1rem;
+    gap: 1rem;
+
+    transform: translateX(0%);
+    transition: transform var(--transition-s);
+    will-change: transform;
+}
+
+#sidebar #sidebar__content #close {
+    font-size: var(--font-size-sxx);
+    color: var(--text-3);
+    cursor: pointer;
+
+    transition: color var(--transition-m);
+    will-change: color;
+}
+
+#sidebar #sidebar__content #close:hover {
+    color: var(--text-1);
+}
+
+#sidebar #sidebar__content #hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+    gap: 5rem;
+    flex: 1;
+}
+
+#sidebar #sidebar__content #hero #sprite {
+    image-rendering: pixelated;
+    object-fit: contain;
+
+    max-height: 50%;
+    width: 100%;
+}
+
+#sidebar #sidebar__content #hero #details {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    flex: 1;
+    width: 100%;
+    background-color: var(--bg-3);
+}
+
+#sidebar #sidebar__content #hero #details #name {
+    font-family: var(--font-title);
+    font-weight: var(--weight-bold);
+    font-size: var(--font-size-mx);
+    color: var(--text-1);
+}

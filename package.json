@@ -1,0 +1,21 @@
+{
+	"devDependencies": {
+		"@biomejs/biome": "latest",
+		"@types/bun": "latest",
+		"vite": "latest",
+		"vite-plugin-html-minifier": "latest",
+		"vite-plugin-lightningcss": "latest"
+	},
+	"dependencies": {
+		"fast-json-stable-stringify": "latest",
+		"pokeapi-js-wrapper": "latest",
+		"idb-keyval": "latest",
+		"lru-cache": "latest"
+	},
+	"scripts": {
+		"dev": "bun run check && vite",
+		"lint": "biome format . --write",
+		"check": "bun install && bun run lint",
+		"build": "vite build"
+	}
+}

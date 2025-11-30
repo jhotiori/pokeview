@@ -1,0 +1,71 @@
+/*
+    ~ modules/global.css
+    Stylesheets applied globally across elements
+    @author jhotiori
+*/
+
+* {
+	font-family: var(--font-sans);
+	font-weight: var(--weight-regular);
+
+	min-height: 0;
+	min-width: 0;
+
+	margin: 0;
+	padding: 0;
+	flex: 0 1 auto;
+
+	box-sizing: border-box;
+	box-shadow: none;
+
+	background: none;
+	border: none;
+	outline: none;
+}
+
+html {
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: antialiased;
+	scroll-behavior: smooth;
+}
+
+body {
+	font-smooth: antialiased;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: antialiased;
+	scroll-behavior: smooth;
+}
+
+/*html, body, main {
+	overflow-x: hidden;
+}*/
+
+html,
+main,
+body {
+	min-height: 100%;
+	width: 100%;
+}
+
+body {
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+main {
+	scroll-behavior: smooth;
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+button {
+	cursor: pointer;
+}
+
+a {
+	text-decoration: none;
+}

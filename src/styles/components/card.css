@@ -1,0 +1,160 @@
+/*
+    ~ card.css
+    Card Component Stylesheets
+    @author jhotiori
+*/
+
+.card {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: column;
+	overflow: hidden;
+	user-select: none;
+
+	flex: 0 0 auto;
+	opacity: 0;
+
+	height: 100%;
+	width: 20%;
+
+	background: radial-gradient(var(--bg-2), var(--bg-3));
+	border: 1px solid var(--br-3);
+	border-radius: 0.5rem;
+
+	transition: border-color var(--transition-m), box-shadow var(--transition-m), transform var(--transition-m);
+	will-change: border-color, box-shadow transform
+}
+
+.card.visible {
+	opacity: 1;
+}
+
+.card #sprite {
+	max-height: 50%;
+	width: 100%;
+
+	object-fit: contain;
+	image-rendering: pixelated;
+	opacity: 0.5;
+
+	transition: opacity var(--transition-m);
+	will-change: opacity
+}
+
+.card #information {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex: 1;
+
+	width: 100%;
+	padding: 0 1rem;
+
+	background-color: var(--bg-3);
+	border-top: 1px solid var(--br-3);
+}
+
+.card #information #left,
+.card #information #right {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 0.5rem;
+}
+
+.card #information #right #types {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 0.25rem;
+
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.card #information #left #name {
+	font-family: var(--font-title);
+	font-weight: var(--weight-bold);
+	font-size: var(--font-size-sx);
+	color: var(--text-2);
+
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+
+	transition: color var(--transition-m);
+	will-change: color;
+}
+
+.card #information #left #id {
+	font-family: var(--font-sans);
+	font-weight: var(--weight-medium);
+	font-size: var(--font-size-xs);
+	color: var(--text-2);
+}
+
+.card #information #right #types p {
+	font-family: var(--font-title);
+	font-weight: var(--weight-bold);
+	font-size: var(--font-size-xs);
+	background-color: var(--bg-1);
+	color: var(--text-3);
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.25rem;
+	text-overflow: ellipsis;
+}
+
+.card #information #right #heart {
+	font-size: var(--font-size-s);
+	color: var(--text-2);
+
+	transition: color var(--transition-m);
+	will-change: color;
+	cursor: pointer;
+}
+
+.card #information #right #heart.favorited {
+	color: rgb(255, 70, 70);
+}
+
+.card #information #right #heart:not(.favorited):hover {
+	color: var(--text-1);
+}
+
+.card:hover {
+	border-color: var(--text-2);
+	box-shadow: 0 0 1rem var(--text-4);
+	transform: scale(1.02) translateY(-0.25rem);
+}
+
+.card:hover #sprite {
+	opacity: 1;
+}
+
+.card:hover #information #left #name {
+	color: var(--text-1);
+}
+
+@media (max-width: 560px) {
+	.card {
+		justify-content: space-between;
+		height: auto;
+		width: 100%;
+	}
+
+	.card #sprite {
+		height: auto;
+		max-height: 100%;
+	}
+
+	.card #information {
+		padding: 0 0.5rem;
+	}
+}
+
+@media (max-width: 380px) {
+	.card #information {
+		flex-direction: column;
+	}
+}

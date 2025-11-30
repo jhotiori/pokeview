@@ -1,0 +1,70 @@
+/*
+    index.css
+    Singleton file for Stylesheets
+    @author jhotiori
+*/
+
+/* COMPONENTS */
+@import "./components/card.css";
+
+/* LAYOUTS */
+@import "./layouts/header.css";
+@import "./layouts/main.css";
+@import "./layouts/footer.css";
+@import "./layouts/sidebar.css";
+
+/* MODULES */
+@import "./modules/webkit.css";
+@import "./modules/global.css";
+@import "./modules/keyframes.css";
+@import "./modules/queries.css";
+
+/* ROOT */
+:root {
+	--font-title: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	--font-sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--font-brand: "Bytesized", ui-monospace, SFMono-Regular, "Courier New", monospace;
+
+	--font-size-s: 1rem;
+	--font-size-sx: 1.25rem;
+	--font-size-sxx: 1.5rem;
+
+	--font-size-xs: 0.7rem;
+	--font-size-xxs: 0.5rem;
+
+	--font-size-m: 2rem;
+	--font-size-mx: 2.5rem;
+	--font-size-mxx: 3rem;
+
+	--font-size-l: 3.5rem;
+	--font-size-lx: 4rem;
+	--font-size-lxx: 5rem;
+
+	--weight-regular: 400;
+	--weight-medium: 600;
+	--weight-bold: 800;
+
+	--bg-1: hsl(0, 0%, 0%);
+	--bg-2: hsl(0, 0%, 5%);
+	--bg-3: hsl(0, 0%, 10%);
+	--bg-4: hsl(0, 0%, 15%);
+
+	--br-1: hsla(0, 0%, 15%, 0.5);
+	--br-2: hsla(0, 0%, 25%, 0.5);
+	--br-3: hsla(0, 0%, 35%, 0.5);
+	--br-4: hsla(0, 0%, 45%, 0.5);
+
+	--text-1: hsl(0, 0%, 90%);
+	--text-2: hsl(0, 0%, 70%);
+	--text-3: hsl(0, 0%, 50%);
+	--text-4: hsl(0, 0%, 30%);
+
+	--anim-style: ease;
+	--anim-speed-fast: 0.1s;
+	--anim-speed-medium: 0.2s;
+	--anim-speed-slow: 0.5s;
+
+	--transition-f: var(--anim-style) var(--anim-speed-fast);
+	--transition-m: var(--anim-style) var(--anim-speed-medium);
+	--transition-s: var(--anim-style) var(--anim-speed-slow);
+}

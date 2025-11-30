@@ -1,0 +1,28 @@
+/*
+    ~ main.css
+    Main Layout Stylesheets
+    @author jhotiori
+*/
+
+/* LAYOUTS */
+@import "./banner.css";
+@import "./search.css";
+@import "./view.css";
+
+/* STYLESHEETS*/
+main {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: column;
+	background-color: var(--bg-1);
+
+	padding: 2rem;
+	gap: 2rem;
+}
+
+@media (max-width: 560px) {
+	main {
+		padding: 1rem;
+	}
+}

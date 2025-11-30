@@ -1,0 +1,111 @@
+/*
+    ~ footer.css
+    Footer Layout Stylesheets
+    @author jhotiori
+*/
+
+footer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+
+	flex: 1;
+	padding: 5rem;
+
+	background-color: var(--bg-2);
+	border-top: 2px solid var(--br-2);
+}
+
+footer #footer__title,
+footer #footer__title #year {
+	font-family: var(--font-title);
+	font-weight: var(--weight-bold);
+	font-size: var(--font-size-m);
+	color: var(--text-1);
+	line-height: 150%;
+}
+
+footer #footer__subtitle {
+	font-size: var(--font-size-s);
+	font-style: italic;
+	color: var(--text-2);
+	line-height: 150%;
+	margin-bottom: 1rem;
+}
+
+footer #footer__redirects {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+}
+
+footer #footer__redirects a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	font-size: var(--font-size-s);
+	color: var(--text-4);
+
+	border: 1px solid var(--text-4);
+	border-radius: 0.5rem;
+
+	padding: 0.25rem 0.5rem;
+	gap: 0.2rem;
+
+	transition: border-color var(--transition-m), color var(--transition-m);
+	will-change: border-color, color;
+}
+
+footer #footer__image {
+	height: var(--font-size-l);
+	width: var(--font-size-l);
+	margin-bottom: 1rem;
+	image-rendering: pixelated;
+	object-fit: contain;
+}
+
+@media (max-width: 560px) {
+	footer {
+		padding: 2rem;
+	}
+
+	footer #footer__title,
+	footer #footer__title #year {
+		font-size: var(--font-size-sx);
+	}
+
+	footer #footer__subtitle {
+		font-size: var(--font-size-xs);
+	}
+
+	footer #footer__redirects a {
+		font-size: var(--font-size-s);
+	}
+}
+
+footer #footer__redirects a:hover {
+	border-color: var(--text-3);
+	color: var(--text-3);
+}
+
+@media (max-width: 280px) {
+	footer {
+		padding: 2rem 0;
+	}
+
+	footer #footer__title {
+		font-size: var(--font-size-s);
+	}
+
+	footer #footer__subtitle {
+		font-size: var(--font-size-xxs);
+	}
+
+	footer #footer__redirects a {
+		font-size: var(--font-size-xs);
+	}
+}

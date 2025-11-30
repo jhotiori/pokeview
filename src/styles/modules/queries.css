@@ -1,0 +1,14 @@
+/*
+    ~ modules/queries.css
+    Media & Content queries for responsiveness
+    @author jhotiori
+*/
+
+/* MOBILE */
+
+/* MINIMAL */
+@media (max-width: 260px) {
+	footer #footer__redirects {
+		flex-direction: column;
+	}
+}

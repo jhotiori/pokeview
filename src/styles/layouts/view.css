@@ -57,9 +57,13 @@ main #view #loader #icon {
 	height: 5rem;
 	width: 5rem;
 
-	transition: transform var(--transition-m), filter var(--transition-m);
+	transition:
+		transform var(--transition-m),
+		filter var(--transition-m);
 	will-change: transform, filter;
-	animation: Spin 1s ease-out infinite, Blur-Pulse 1s ease-out infinite;
+	animation:
+		Spin 1s ease-out infinite,
+		Blur-Pulse 1s ease-out infinite;
 }
 
 main #view #message {

@@ -75,7 +75,9 @@ main #search #filters .filters__group .dropdown__button {
 	border-radius: 0.5rem;
 	padding: 0.5rem 1rem;
 
-	transition: border-color var(--transition-m), color var(--transition-m);
+	transition:
+		border-color var(--transition-m),
+		color var(--transition-m);
 	will-change: border-color, color;
 }
 

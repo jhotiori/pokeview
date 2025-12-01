@@ -4,10 +4,13 @@
     @author jhotiori
 */
 
+import { APIGetPokemonByNameAsync, APIPokedex } from "../api/pokeapi.js";
 import { StringCapitalize } from "../utils/string-utils.js";
 import { ErrorExpect } from "../utils/error-utils.js";
+import { Logger } from "../libs/logger.js";
 
 const InformationCache = new WeakMap();
+const EvolutionCache = new WeakMap();
 const SpritesCache = new WeakMap();
 const StatsCache = new WeakMap();
 const TypesCache = new WeakMap();
@@ -22,6 +25,8 @@ const FALLBACK_STATS = {
 	special_attack: 0,
 	special_defense: 0,
 };
+
+export const PokemonServiceLogger = new Logger("services/pokemons-service.js");
 
 /**
  * Returns the base stats of a Pokemon in a structured format.
@@ -122,4 +127,44 @@ export const PokemonServiceGetInformation = (pokemon) => {
 
 	InformationCache.set(pokemon, information);
 	return information;
+};
+
+/**
+ * Returns the evolutions of a Pokemon.
+ * @param {Object} pokemon - The Pokemon object
+ * @returns {Object} The Pokemon's evolutions
+ */
+export const PokemonServiceGetEvolutions = async (pokemon) => {
+	ErrorExpect(typeof pokemon === "object", "Expected a valid Pokemon object!");
+	if (EvolutionCache.has(pokemon)) return EvolutionCache.get(pokemon);
+	PokemonServiceLogger.info("Pokemon received:", pokemon);
+
+	const species = await APIPokedex.getPokemonSpeciesByName(pokemon.name);
+	if (!species || !species.evolution_chain?.url) return;
+
+	const url = species.evolution_chain.url;
+	const id = url.split("/").filter(Boolean).pop();
+	if (!id) return;
+
+	const evolutionChain = await APIPokedex.getEvolutionChainById(id);
+	if (!evolutionChain) return;
+
+	const names = [];
+	const GetNextEvolution = (node) => {
+		names.push(node.species.name);
+		node.evolves_to.forEach((child) => GetNextEvolution(child));
+	};
+
+	GetNextEvolution(evolutionChain.chain);
+	const evolutions = await Promise.all(
+		names.map(async (name) => {
+			const pokemon = await APIGetPokemonByNameAsync(name);
+			return PokemonServiceGetInformation(pokemon);
+		}),
+	);
+
+	PokemonServiceLogger.info("Evolutions retrieved:", evolutions);
+
+	EvolutionCache.set(pokemon, evolutions);
+	return evolutions;
 };

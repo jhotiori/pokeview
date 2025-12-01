@@ -6,6 +6,7 @@
 
 import { FavoritesAdd, FavoritesRemove, FavoritesHas, FavoritesEmitter } from "../services/favorites-service.js";
 import { PokemonServiceGetInformation } from "../services/pokemons-service.js";
+import { SidebarControllerShow } from "./sidebar-controller.js";
 import { APIGetPokemonsAsync } from "../api/pokeapi.js";
 import { StringCapitalize } from "../utils/string-utils.js";
 import { CreateElement } from "../libs/element.js";
@@ -198,7 +199,7 @@ export const ViewControllerRenderCard = async (pokemon) => {
 		});
 	});
 
-	return CreateElement(
+	const element = CreateElement(
 		"article",
 		{
 			class: "card",
@@ -225,6 +226,14 @@ export const ViewControllerRenderCard = async (pokemon) => {
 			]),
 		],
 	);
+
+	FeaturesUse("enable-sidebar", () => {
+		element.addEventListener("click", async () => {
+			await SidebarControllerShow(information, pokemon);
+		});
+	});
+
+	return element;
 };
 
 /**

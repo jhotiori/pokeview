@@ -15,11 +15,14 @@ main {
 	align-items: center;
 	justify-content: flex-start;
 	flex-direction: column;
-	background-color: var(--bg-1);
+	position: relative;
 
 	padding: 2rem;
 	gap: 2rem;
+
+	background-color: var(--bg-1);
 }
+
 
 @media (max-width: 560px) {
 	main {

@@ -22,8 +22,12 @@
 	border: 1px solid var(--br-3);
 	border-radius: 0.5rem;
 
-	transition: border-color var(--transition-m), box-shadow var(--transition-m), transform var(--transition-m);
-	will-change: border-color, box-shadow transform
+	transition:
+		border-color var(--transition-m),
+		transform var(--transition-m);
+	will-change:
+		border-color,
+		box-shadow transform;
 }
 
 .card.visible {
@@ -31,7 +35,7 @@
 }
 
 .card #sprite {
-	max-height: 50%;
+	max-height: 80%;
 	width: 100%;
 
 	object-fit: contain;
@@ -39,7 +43,7 @@
 	opacity: 0.5;
 
 	transition: opacity var(--transition-m);
-	will-change: opacity
+	will-change: opacity;
 }
 
 .card #information {
@@ -124,7 +128,6 @@
 
 .card:hover {
 	border-color: var(--text-2);
-	box-shadow: 0 0 1rem var(--text-4);
 	transform: scale(1.02) translateY(-0.25rem);
 }
 
@@ -145,7 +148,7 @@
 
 	.card #sprite {
 		height: auto;
-		max-height: 100%;
+		max-height: 90%;
 	}
 
 	.card #information {

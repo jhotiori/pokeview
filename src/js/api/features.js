@@ -10,6 +10,7 @@ const RUNTIME_FEATURES = {
 	"enable-search": false,
 	"enable-search-filters": false,
 	"enable-banner": false,
+	"enable-sidebar": false,
 	"enable-view": false,
 	"enable-favorites": false,
 	"enable-emitter-logs": false,

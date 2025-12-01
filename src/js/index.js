@@ -19,12 +19,15 @@ import {
 } from "./controllers/view-controller.js";
 import { BannerControllerInit, BannerEmitter } from "./controllers/banner-controller.js";
 import { FavoritesInit, FavoritesEmitter } from "./services/favorites-service.js";
+import { SidebarControllerInit } from "./controllers/sidebar-controller.js";
 import { DBInit } from "./api/database.js";
 import { Logger } from "./libs/logger.js";
+import { $ } from "./utils/dom-utils.js";
 
 FeaturesBulkEnable(
 	"enable-banner",
 	"enable-search",
+	"enable-sidebar",
 	"enable-search-filters",
 	"enable-favorites",
 	"enable-view",
@@ -37,6 +40,7 @@ const IndexLogger = new Logger("index.js");
 	await DBInit();
 	await FavoritesInit();
 	ViewControllerShowNoPokemons();
+	SidebarControllerInit();
 
 	FeaturesUse("enable-banner", () =>
 		BannerControllerInit({

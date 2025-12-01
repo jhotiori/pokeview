@@ -69,8 +69,8 @@ export default defineConfig({
 	},
 
 	optimizeDeps: {
-		entries: ["./src/**/*.js"],
+		include: [...Object.keys(require("./package.json").dependencies)],
 		esbuildOptions: { target: "esnext" },
-		force: true,
+		force: false,
 	},
 });

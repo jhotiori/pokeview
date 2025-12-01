@@ -183,12 +183,9 @@ main #banner #banner__stats #list li #icon {
 
 main #banner #banner__stats #list li #label {
 	flex: 0 1 auto;
-
 }
 
 main #banner #banner__stats #list li #value {
-
-
 	font-weight: var(--weight-bold);
 	font-size: var(--font-size-sx);
 	color: var(--text-2);

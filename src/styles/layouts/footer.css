@@ -56,7 +56,9 @@ footer #footer__redirects a {
 	padding: 0.25rem 0.5rem;
 	gap: 0.2rem;
 
-	transition: border-color var(--transition-m), color var(--transition-m);
+	transition:
+		border-color var(--transition-m),
+		color var(--transition-m);
 	will-change: border-color, color;
 }
 

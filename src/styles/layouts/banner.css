@@ -63,6 +63,25 @@ main #banner #banner__pokemon #information #left #name {
 	font-weight: var(--weight-bold);
 	font-size: var(--font-size-m);
 	color: var(--text-1);
+
+	transition:
+		background-color var(--transition-m),
+		text-shadow var(--transition-m);
+	will-change: background-color, text-shadow;
+}
+
+main #banner #banner__pokemon.gmax #information #left #name {
+	background: linear-gradient(var(--text-gmax), var(--text-1));
+	text-shadow: 0 0 5rem var(--text-gmax);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+main #banner #banner__pokemon.mega #information #left #name {
+	background: linear-gradient(var(--text-mega), var(--text-1));
+	text-shadow: 0 0 5rem var(--text-mega);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 main #banner #banner__pokemon #information #left #timer {
@@ -70,6 +89,17 @@ main #banner #banner__pokemon #information #left #timer {
 	font-weight: var(--weight-medium);
 	font-size: var(--font-size-s);
 	color: var(--text-2);
+
+	transition: color var(--transition-m);
+	will-change: color;
+}
+
+main #banner #banner__pokemon #information #left #timer.tick {
+	color: var(--text-1);
+}
+
+main #banner #banner__pokemon #information #left #timer.tick-danger {
+	color: rgb(255, 70, 70);
 }
 
 main #banner #banner__pokemon #information #left #timer::before {
@@ -93,7 +123,7 @@ main #banner #banner__pokemon #information #right #types {
 
 main #banner #banner__pokemon #information #right #types p {
 	font-family: var(--font-sans);
-	font-weight: var(--weight-medium);
+	font-weight: var(--weight-bold);
 	font-size: var(--font-size-s);
 
 	background-color: var(--bg-1);
@@ -101,6 +131,21 @@ main #banner #banner__pokemon #information #right #types p {
 
 	padding: 0.5rem 1rem;
 	border-radius: 0.5rem;
+
+	transition:
+		background-color var(--transition-m),
+		color var(--transition-m);
+	will-change: background-color, color;
+}
+
+main #banner #banner__pokemon.gmax #information #right #types p {
+	background: linear-gradient(var(--text-gmax), var(--text-gmax-dark));
+	color: var(--text-1);
+}
+
+main #banner #banner__pokemon.mega #information #right #types p {
+	background: linear-gradient(var(--text-mega), var(--text-mega-dark));
+	color: var(--text-1);
 }
 
 main #banner #banner__pokemon #information #right #heart {

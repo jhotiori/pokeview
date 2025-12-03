@@ -49,6 +49,11 @@
 	--bg-3: hsl(0, 0%, 10%);
 	--bg-4: hsl(0, 0%, 15%);
 
+	--bg-contrast-1: hsl(0, 0%, 90%);
+	--bg-contrast-2: hsl(0, 0%, 80%);
+	--bg-contrast-3: hsl(0, 0%, 70%);
+	--bg-contrast-4: hsl(0, 0%, 60%);
+
 	--br-1: hsla(0, 0%, 15%, 0.5);
 	--br-2: hsla(0, 0%, 25%, 0.5);
 	--br-3: hsla(0, 0%, 35%, 0.5);
@@ -58,6 +63,19 @@
 	--text-2: hsl(0, 0%, 70%);
 	--text-3: hsl(0, 0%, 50%);
 	--text-4: hsl(0, 0%, 30%);
+
+	--text-contrast-1: hsl(0, 0%, 0%);
+	--text-contrast-2: hsl(0, 0%, 20%);
+	--text-contrast-3: hsl(0, 0%, 40%);
+	--text-contrast-4: hsl(0, 0%, 60%);
+
+	--text-gmax: hsl(339, 100%, 70%);
+	--text-gmax-light: hsl(339, 100%, 80%);
+	--text-gmax-dark: hsl(339, 100%, 60%);
+
+	--text-mega: hsl(271, 100%, 70%);
+	--text-mega-light: hsl(271, 100%, 80%);
+	--text-mega-dark: hsl(271, 100%, 60%);
 
 	--anim-style: ease;
 	--anim-speed-fast: 0.1s;

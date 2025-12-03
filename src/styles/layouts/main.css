@@ -23,7 +23,6 @@ main {
 	background-color: var(--bg-1);
 }
 
-
 @media (max-width: 560px) {
 	main {
 		padding: 1rem;

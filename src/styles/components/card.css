@@ -25,9 +25,31 @@
 	transition:
 		border-color var(--transition-m),
 		transform var(--transition-m);
-	will-change:
-		border-color,
-		box-shadow transform;
+	will-change: border-color, transform;
+}
+
+.card > * {
+	opacity: 0.5;
+	transition: opacity var(--transition-m);
+	will-change: opacity;
+}
+
+.card.gmax #information #right #types p {
+	background: linear-gradient(var(--text-gmax), var(--text-gmax-dark));
+	color: var(--text-1);
+}
+
+.card.mega #information #right #types p {
+	background: linear-gradient(var(--text-mega), var(--text-mega-dark));
+	color: var(--text-1);
+}
+
+.card.gmax:hover {
+	border-color: var(--text-gmax-light);
+}
+
+.card.mega:hover {
+	border-color: var(--text-mega-light);
 }
 
 .card.visible {
@@ -40,7 +62,6 @@
 
 	object-fit: contain;
 	image-rendering: pixelated;
-	opacity: 0.5;
 
 	transition: opacity var(--transition-m);
 	will-change: opacity;
@@ -63,7 +84,6 @@
 .card #information #right {
 	display: flex;
 	align-items: center;
-	justify-content: flex-start;
 	gap: 0.5rem;
 }
 
@@ -71,10 +91,23 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
+	flex: 0 1 auto;
 	gap: 0.25rem;
 
 	white-space: nowrap;
 	overflow: hidden;
+}
+
+.card #information #right #types p {
+	font-family: var(--font-title);
+	font-weight: var(--weight-bold);
+	font-size: var(--font-size-xs);
+	background-color: var(--bg-1);
+	color: var(--text-3);
+
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.25rem;
+	text-overflow: ellipsis;
 }
 
 .card #information #left #name {
@@ -91,22 +124,23 @@
 	will-change: color;
 }
 
+.card #information #left #name.gmax {
+	background: linear-gradient(0deg, var(--text-gmax), var(--text-1));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.card #information #left #name.mega {
+	background: linear-gradient(0deg, var(--text-mega), var(--text-1));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
 .card #information #left #id {
 	font-family: var(--font-sans);
 	font-weight: var(--weight-medium);
 	font-size: var(--font-size-xs);
 	color: var(--text-2);
-}
-
-.card #information #right #types p {
-	font-family: var(--font-title);
-	font-weight: var(--weight-bold);
-	font-size: var(--font-size-xs);
-	background-color: var(--bg-1);
-	color: var(--text-3);
-	padding: 0.25rem 0.5rem;
-	border-radius: 0.25rem;
-	text-overflow: ellipsis;
 }
 
 .card #information #right #heart {
@@ -116,6 +150,14 @@
 	transition: color var(--transition-m);
 	will-change: color;
 	cursor: pointer;
+}
+
+.card.gmax #information #right #heart.favorited {
+	color: var(--text-gmax);
+}
+
+.card.mega #information #right #heart.favorited {
+	color: var(--text-mega);
 }
 
 .card #information #right #heart.favorited {
@@ -128,10 +170,10 @@
 
 .card:hover {
 	border-color: var(--text-2);
-	transform: scale(1.02) translateY(-0.25rem);
+	transform: translateY(-0.25rem);
 }
 
-.card:hover #sprite {
+.card:hover > * {
 	opacity: 1;
 }
 

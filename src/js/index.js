@@ -14,8 +14,10 @@ import {
 import { FeaturesBulkEnable, FeaturesBulkDisable, FeaturesUse } from "./api/features.js";
 import {
 	ViewControllerRender,
-	ViewControllerReset,
 	ViewControllerShowNoPokemons,
+	ViewControllerApplyFilters,
+	ViewControllerFilters,
+	SetViewControllerFilters,
 } from "./controllers/view-controller.js";
 import { BannerControllerInit, BannerEmitter } from "./controllers/banner-controller.js";
 import { FavoritesInit, FavoritesEmitter } from "./services/favorites-service.js";
@@ -53,21 +55,28 @@ const IndexLogger = new Logger("index.js");
 		}),
 	);
 
-	FeaturesUse("enable-search", () =>
+	FeaturesUse("enable-search", () => {
 		SearchControllerInit("main #search #bar #input", {
 			Render: async (queries) => ViewControllerRender(queries, { ChunkSize: 5 }),
 			Validate: (input) => SearchControllerValidate(input),
 			Query: (input) => SearchControllerQuery(input),
 			Reset: () => ViewControllerShowNoPokemons(),
 			Delay: 500,
-		}),
-	);
+		});
+	});
 
 	FeaturesUse("enable-search-filters", () =>
 		SearchControllerInitFilters({
 			Selector: "main #search #filters .filters__group",
 			Callback: (option) => {
-				IndexLogger.warn(`Option selected! (Value: ${option.value}, Type: ${option.type})`);
+				IndexLogger.warn(`Filter Option selected! (Value: ${option.value}, Type: ${option.type})`);
+				if (option.type === "Type") {
+					SetViewControllerFilters({ ...ViewControllerFilters.get(), type: option.value });
+				} else if (option.type === "Order") {
+					SetViewControllerFilters({ ...ViewControllerFilters.get(), order: option.value });
+				}
+
+				ViewControllerApplyFilters();
 			},
 		}),
 	);

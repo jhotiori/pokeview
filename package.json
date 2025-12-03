@@ -10,12 +10,13 @@
 		"fast-json-stable-stringify": "latest",
 		"pokeapi-js-wrapper": "latest",
 		"idb-keyval": "latest",
+		"fast-sort": "latest",
 		"lru-cache": "latest"
 	},
 	"scripts": {
 		"dev": "bun run check && vite",
 		"lint": "biome format . --write",
 		"check": "bun install && bun run lint",
-		"build": "vite build"
+		"build": "bun run check && vite build && vite preview"
 	}
 }

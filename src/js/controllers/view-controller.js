@@ -4,7 +4,13 @@
     @author jhotiori
 */
 
-import { FavoritesAdd, FavoritesRemove, FavoritesHas, FavoritesEmitter } from "../services/favorites-service.js";
+import {
+	FavoritesAdd,
+	FavoritesRemove,
+	FavoritesHas,
+	FavoritesEmitter,
+	FavoritesCache,
+} from "../services/favorites-service.js";
 import { PokemonServiceGetInformation } from "../services/pokemons-service.js";
 import { SidebarControllerShow } from "./sidebar-controller.js";
 import { APIGetPokemonsAsync } from "../api/pokeapi.js";
@@ -16,9 +22,14 @@ import { StateCreate } from "../libs/state.js";
 import { Emitter } from "../libs/emitter.js";
 import { Logger } from "../libs/logger.js";
 import { sleep } from "../utils/helper-utils.js";
-import { $, $$ } from "../utils/dom-utils.js";
+import { sort } from "fast-sort";
+import { $ } from "../utils/dom-utils.js";
 
-export const [ViewControllerState, SetViewControllerState] = StateCreate({ queries: [], inview: [] });
+import "../../assets/pokeball.svg";
+
+export const [ViewControllerState, SetViewControllerState] = StateCreate({ queries: [], inview: [], filtered: [] });
+export const [ViewControllerFilters, SetViewControllerFilters] = StateCreate({ type: "all", order: "ascending" });
+
 export const ViewControllerLogger = new Logger("controllers/view-controller.js");
 export const ViewControllerEmitter = new Emitter();
 
@@ -28,31 +39,57 @@ const [IsLoading, SetIsLoading] = StateCreate(false);
 const DOMGetView = () => $("main #view");
 
 /**
+ * Renders Pokemons to the View.
+ * Main entry point for initial render or when applying a new set of queries.
  *
+ * Behaviour:
+ * - Uses ViewControllerSelectQueries to compute `filtered`.
+ * - If filtered is empty -> show empty message and DON'T set up scroll.
+ * - Otherwise set state.filtered, reset inview and render first chunk.
+ *
+ * @param {Array<string>} queries - array of pokemon identifiers (names/ids)
+ * @param {Object} defs - definitions object
+ * @param {number} defs.ChunkSize - chunk size for pagination
+ * @returns {Promise<void>}
  */
 export const ViewControllerRender = async (queries, defs) => {
-	ViewControllerReset(); // Clears the view
-	ViewControllerHideEmpty(); // Hides the 'No Pokemons' message
-	ViewControllerShowLoader(); // Shows loader
-	SetViewControllerState({ queries, inview: [] });
+	const view = DOMGetView();
+	if (!view) return;
+
+	const filtered = ViewControllerSelectQueries(queries);
+	if (!filtered || filtered.length === 0) {
+		SetViewControllerState({ queries: [...(queries || [])], filtered: [], inview: [] });
+		return ViewControllerShowNoPokemons();
+	}
+
+	ViewControllerReset();
+	ViewControllerHideEmpty();
+	ViewControllerShowLoader();
+
+	SetViewControllerState({
+		queries: [...(queries || [])],
+		filtered: [...filtered],
+		inview: [],
+	});
 
 	const { ChunkSize } = defs;
-	const slice = queries.slice(0, ChunkSize);
+	const slice = filtered.slice(0, ChunkSize);
 	const pokemons = await APIGetPokemonsAsync(slice);
 	await sleep(1000);
 
 	await ViewControllerRenderCards({
 		Start: 0,
-		ChunkSize,
+		ChunkSize: slice.length,
 		Pokemons: pokemons,
 	});
 
-	ViewControllerEnableScroll({
-		ChunkSize,
+	const previous = ViewControllerState.get();
+	SetViewControllerState({
+		queries: previous.queries,
+		filtered: previous.filtered,
+		inview: [...previous.inview, ...slice],
 	});
-
-	const state = ViewControllerState.get();
-	SetViewControllerState({ queries, inview: [...state.inview, ...slice] });
+	ViewControllerEnableScroll({ ChunkSize });
 	ViewControllerHideLoader();
 };
 
@@ -84,7 +121,8 @@ export const ViewControllerShowNoPokemons = () => {
 };
 
 /**
- *
+ * Enables the scroll listener. This will load chunks of Pokemons as the user scrolls down.
+ * @param {Object} defs - The definitions
  */
 export const ViewControllerEnableScroll = (defs) => {
 	const view = DOMGetView();
@@ -101,10 +139,9 @@ export const ViewControllerEnableScroll = (defs) => {
 
 		const state = ViewControllerState.get();
 		const start = state.inview.length;
-		const remaining = state.queries.length - start;
+		const remaining = state.filtered.length - start;
 		if (remaining <= 0) return;
 
-		// Render the remaining amount
 		const count = Math.min(ChunkSize, remaining);
 		view.removeEventListener("scroll", listener);
 		SetIsLoading(true);
@@ -123,7 +160,12 @@ export const ViewControllerEnableScroll = (defs) => {
 };
 
 /**
+ * Renders next chunk based on ViewControllerState.filtered & inview
  *
+ * @param {Object} defs
+ * @param {number} defs.Start - start index (in filtered)
+ * @param {number} defs.ChunkSize - number of items to load
+ * @returns {Promise<void>}
  */
 export const ViewControllerRenderNext = async (defs) => {
 	const view = DOMGetView();
@@ -133,22 +175,23 @@ export const ViewControllerRenderNext = async (defs) => {
 	if (!state) return;
 
 	const { Start, ChunkSize } = defs;
-
-	const slice = state.queries?.slice(Start, Start + ChunkSize);
-	if (!slice || slice?.length === 0) return;
+	const slice = state.filtered?.slice(Start, Start + ChunkSize);
+	if (!slice || slice.length === 0) return;
 
 	ViewControllerShowLoader();
 	const pokemons = await APIGetPokemonsAsync(slice);
 	await ViewControllerRenderCards({
 		Start,
-		ChunkSize: slice.length,
+		ChunkSize: pokemons.length,
 		Pokemons: pokemons,
 	});
 
+	const previous = ViewControllerState.get();
 	ViewControllerHideLoader();
 	SetViewControllerState({
-		queries: state.queries,
-		inview: [...state.inview, ...slice],
+		queries: previous.queries,
+		filtered: previous.filtered,
+		inview: [...previous.inview, ...slice],
 	});
 };
 
@@ -202,7 +245,7 @@ export const ViewControllerRenderCard = async (pokemon) => {
 	const element = CreateElement(
 		"article",
 		{
-			class: "card",
+			class: name.includes("-gmax") ? "card gmax" : name.includes("-mega") ? "card mega" : "card",
 			"aria-label": `${name}'s Card`,
 		},
 		[
@@ -211,11 +254,16 @@ export const ViewControllerRenderCard = async (pokemon) => {
 				src: sprite ?? "assets/question-mark.svg",
 				loading: "lazy",
 				alt: `${StringCapitalize(name)}'s Sprite`,
+				ariaLabel: `${StringCapitalize(name)}'s Sprite`,
 			}),
 
 			CreateElement("div", { id: "information" }, [
 				CreateElement("div", { id: "left" }, [
-					CreateElement("p", { id: "name" }, StringCapitalize(name)),
+					CreateElement(
+						"p",
+						{ id: "name", class: name.includes("-gmax") ? "gmax" : name.includes("-mega") ? "mega" : "" },
+						StringCapitalize(name),
+					),
 					CreateElement("p", { id: "id" }, `#${String(id).padStart(4, "0")}`),
 				]),
 
@@ -236,19 +284,57 @@ export const ViewControllerRenderCard = async (pokemon) => {
 	return element;
 };
 
+export const ViewControllerApplyFilters = async () => {
+	const state = ViewControllerState.get();
+	ViewControllerRender(state.queries, { ChunkSize: 5 });
+};
+
+/**
+ * Select queries according to current filter mode.
+ * - If "favorites" and there are favorites in cache, use FavoritesCache.
+ * - If "favorites" and no favorites -> return [] (so caller shows empty).
+ * - If "all" -> return original queries unchanged.
+ *
+ * @param {Array<string>} rawQueries - original queries (state.queries)
+ * @returns {Array<string>} filtered queries for rendering/pagination
+ */
+function ViewControllerSelectQueries(rawQueries) {
+	const { type, order } = ViewControllerFilters.get();
+	let result;
+
+	if (type === "favorites") {
+		result = FavoritesCache?.length ? [...FavoritesCache] : [];
+		return order === "ascending"
+			? sort(result).asc((q) => q)
+			: order === "descending"
+				? sort(result).desc((q) => q)
+				: result;
+	}
+
+	result = [...(rawQueries || [])];
+
+	if (order === "ascending") {
+		return sort(result).asc((q) => q);
+	}
+
+	if (order === "descending") {
+		return sort(result).desc((q) => q);
+	}
+
+	return result;
+}
+
 /**
  * Renders several pokemon cards.
- *  Starts at the start index and ends at the end index.
+ * Starts at the start index and ends at the end index.
  * @param {Object[]} pokemons - The Pokemons to render
- * @param {number} [start=0] - The start index
- * @param {number} [end=pokemons.length] - The end index
+ * @param {Object} defs - The definitions
  */
 export const ViewControllerRenderCards = async (defs) => {
 	const view = DOMGetView();
 	if (!view) return;
 
-	const { Start, ChunkSize, Pokemons } = defs;
-	const slice = Pokemons.slice(Start, Start + ChunkSize);
+	const { Pokemons } = defs;
 	const cards = await Promise.all(Pokemons.map(ViewControllerRenderCard));
 
 	for (const card of cards) {
@@ -294,6 +380,8 @@ export const ViewControllerShowLoader = () => {
 	let overlay = $("#loader", view);
 	if (overlay) overlay.remove();
 
+	const src = "assets/pokeball.svg";
+
 	view.appendChild(
 		CreateElement(
 			"div",
@@ -302,7 +390,7 @@ export const ViewControllerShowLoader = () => {
 			},
 			[
 				CreateElement("img", {
-					src: "assets/pokeball.svg",
+					src: src,
 					id: "icon",
 					loading: "lazy",
 					imageRendering: "pixelated",

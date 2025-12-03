@@ -9,6 +9,7 @@ import htmlMinifier from "vite-plugin-html-minifier";
 import lightningcss from "vite-plugin-lightningcss";
 
 export default defineConfig({
+	base: "./",
 	root: "src",
 	publicDir: "src/public",
 	appType: "spa",
@@ -16,6 +17,7 @@ export default defineConfig({
 	plugins: [
 		lightningcss({
 			browserslist: ">= 0.25%, last 2 versions, not dead",
+			minify: true,
 			drafts: {
 				customMedia: true,
 				nesting: true,
@@ -38,9 +40,15 @@ export default defineConfig({
 		},
 	},
 
+	preview: {
+		port: 8001,
+		open: false,
+		cors: true,
+		strictPort: true,
+	},
+
 	esbuild: {
 		target: "esnext",
-		minify: true,
 	},
 
 	build: {
@@ -51,26 +59,30 @@ export default defineConfig({
 		outDir: "../build",
 		emptyOutDir: true,
 
+		reportCompressedSize: false,
+		cssCodeSplit: false,
+		sourcemap: false,
+		assetsInlineLimit: 0,
+
 		modulePreload: {
 			polyfill: false,
 		},
 
 		rollupOptions: {
+			preserveEntrySignatures: "strict",
 			output: {
 				inlineDynamicImports: true,
 				manualChunks: undefined,
+				entryFileNames: `[name].js`,
+				chunkFileNames: `[name].js`,
+				assetFileNames: "assets/[name][extname]",
 			},
 		},
-
-		reportCompressedSize: false,
-		cssCodeSplit: false,
-		sourcemap: false,
-		assetsInlineLimit: 0,
 	},
 
 	optimizeDeps: {
 		include: [...Object.keys(require("./package.json").dependencies)],
 		esbuildOptions: { target: "esnext" },
-		force: false,
+		force: true,
 	},
 });

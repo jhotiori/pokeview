@@ -80,10 +80,19 @@ export const SidebarControllerShow = async (information, pokemon) => {
 	sidebar.classList.add("open");
 	SidebarControllerEmitter.emit("sidebar:show");
 
-	SidebarControllerSetName(StringCapitalize(information.name).toUpperCase());
-	SidebarControllerSetTypes(information.types);
-	SidebarControllerSetSprite(information.sprite);
-	SidebarControllerSetStats(information.stats);
+	const { name, types, sprite, stats } = information;
+	const OnGMAX = () => sidebar.classList.add("gmax");
+	const OnMega = () => sidebar.classList.add("mega");
+	const NotGMAX = () => sidebar.classList.remove("gmax");
+	const NotMega = () => sidebar.classList.remove("mega");
+
+	name.includes("-gmax") ? OnGMAX() : NotGMAX();
+	name.includes("-mega") ? OnMega() : NotMega();
+
+	SidebarControllerSetName(name);
+	SidebarControllerSetTypes(types);
+	SidebarControllerSetSprite(sprite);
+	SidebarControllerSetStats(stats);
 	SidebarControllerSetEvolutions();
 
 	const evolutions = (await PokemonServiceGetEvolutions(pokemon)) ?? [];
@@ -128,7 +137,15 @@ export const SidebarControllerSetName = (name) => {
 	const element = $("#sidebar__content #hero #details #name", sidebar);
 	if (!element) return;
 
-	element.textContent = name;
+	const OnGMAX = () => element.classList.add("gmax");
+	const OnMega = () => element.classList.add("mega");
+
+	const NotGMAX = () => element.classList.remove("gmax");
+	const NotMega = () => element.classList.remove("mega");
+
+	element.textContent = name.toUpperCase();
+	name.includes("-gmax") ? OnGMAX() : NotGMAX();
+	name.includes("-mega") ? OnMega() : NotMega();
 };
 
 /**
@@ -174,7 +191,7 @@ export const SidebarControllerSetStats = (stats) => {
 	const sidebar = DOMGetSidebar();
 	if (!sidebar) return;
 
-	const element = $("#sidebar__content #hero #details #box #stats", sidebar);
+	const element = $("#sidebar__content #hero #details #stats-box #stats", sidebar);
 	if (!element) return;
 
 	const order = [
@@ -259,10 +276,9 @@ export const SidebarControllerRenderEvolution = (evolution) => {
  * @returns {DocumentFragment} The fragment ready to append to the sidebar
  */
 export const SidebarControllerRenderEvolutions = (evolutions) => {
-	ErrorExpect(Array.isArray(evolutions), "Expected an array of evolutions!");
 	const fragment = new DocumentFragment();
 
-	if (!evolutions.length) {
+	if (!evolutions || !evolutions.length) {
 		const fallback1 = CreateElement("img", {
 			src: "assets/question-mark.svg",
 			loading: "lazy",
@@ -273,8 +289,8 @@ export const SidebarControllerRenderEvolutions = (evolutions) => {
 			loading: "lazy",
 			alt: "???'s Evolution",
 		});
-		const arrow = CreateElement("i", { class: "bi bi-arrow-right" });
 
+		const arrow = CreateElement("i", { class: "bi bi-arrow-right" });
 		fragment.appendChild(fallback1);
 		fragment.appendChild(arrow);
 		fragment.appendChild(fallback2);

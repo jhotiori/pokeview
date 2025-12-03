@@ -24,6 +24,8 @@ export const BannerEmitter = new Emitter();
 let [HeartListener, SetHeartListener] = StateCreate(null);
 let [ActiveTimer, SetActiveTimer] = StateCreate(null);
 
+const DOMGetBanner = () => $("main #banner");
+
 /**
  * Constructs the DOM for a Pokemon to be shown to the banner.
  * @param {Object} defs - The definitions
@@ -74,7 +76,7 @@ export const BannerControllerInit = (
 	const BannerStats = DOMGetElement(options.Stats, "Stats");
 
 	BannerEmitter.on("pokemon:ready", (defs) => {
-		BannerControllerSetName(BannerName, StringCapitalize(defs.name));
+		BannerControllerSetName(BannerName, defs.name);
 		BannerControllerSetSprite(BannerSprite, defs.sprite);
 		BannerControllerSetTypes(BannerTypes, defs.types);
 		BannerControllerSetStats(BannerStats, defs.stats);
@@ -141,7 +143,20 @@ export const BannerControllerInitLoop = async () => {
 export const BannerControllerSetName = (element, name) => {
 	ErrorExpect(element, "Expected a valid element!");
 	ErrorExpect(typeof name === "string", "Expected a valid name!");
-	element.textContent = name;
+	const banner = DOMGetBanner();
+	if (!banner) return;
+
+	const pokemonBanner = $("#banner__pokemon", banner);
+	if (!pokemonBanner) return;
+
+	const OnGMAX = () => pokemonBanner.classList.add("gmax");
+	const OnMega = () => pokemonBanner.classList.add("mega");
+	const NotGMAX = () => pokemonBanner.classList.remove("gmax");
+	const NotMega = () => pokemonBanner.classList.remove("mega");
+
+	element.textContent = StringCapitalize(name);
+	name.includes("-gmax") ? OnGMAX() : NotGMAX();
+	name.includes("-mega") ? OnMega() : NotMega();
 };
 
 /**
@@ -274,11 +289,24 @@ export const BannerControllerStartTimer = (element, seconds, onCompleted) => {
 
 	SetActiveTimer(
 		TimerCreate({
-			Tick: (remaining) => (element.textContent = `${remaining}s`),
+			Tick: (remaining) => BannerControllerOnTimerTick(element, remaining),
+			Completed: () => onCompleted(),
 			Interval: seconds,
-			Completed: () => {
-				onCompleted();
-			},
 		}),
 	);
+};
+
+/**
+ * Updates the timer element on tick.
+ * @param {HTMLElement} element - The timer element
+ * @param {number} remaining - The remaining seconds
+ */
+export const BannerControllerOnTimerTick = (element, remaining) => {
+	let tickType = remaining <= 3 ? "tick-danger" : "tick";
+	element.textContent = `${remaining}s`;
+	element.classList.add(tickType);
+
+	setTimeout(() => {
+		element.classList.remove(tickType);
+	}, 200);
 };

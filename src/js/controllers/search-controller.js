@@ -37,6 +37,33 @@ export const SearchControllerInit = (
 	const [Timeout, SetTimeout] = StateCreate(null);
 	const [Rendering, SetRendering] = StateCreate(false);
 
+	const LoadFromURL = async () => {
+		const params = new URLSearchParams(window.location.search);
+		if (!params.has("q")) return;
+
+		const raw = params.get("q");
+		const value = decodeURIComponent(raw.replace(/\+/g, " "));
+		DOMInput.value = value;
+
+		if (!Validate(value)) {
+			Reset();
+			SearchControllerUpdateURL("");
+			return;
+		}
+
+		const queries = Query(value);
+		if (!queries?.length) {
+			Reset();
+			return;
+		}
+
+		SearchEmitter.emit("render:start");
+		await Render(queries);
+		SearchEmitter.emit("render:finish");
+	};
+
+	LoadFromURL();
+
 	SearchEmitter.on("timeout:clear", () => {
 		const timeout = Timeout.get();
 		if (!timeout) return;
@@ -65,13 +92,15 @@ export const SearchControllerInit = (
 				if (!Validate(value)) {
 					SearchEmitter.emit("input:failed");
 					Reset();
+					SearchControllerUpdateURL("");
 					return;
 				}
 
 				const queries = Query(value);
 				SearchEmitter.emit("render:start");
+				SearchControllerUpdateURL(value);
 
-				if (!queries && queries?.length === 0) {
+				if (!queries || queries.length === 0) {
 					Reset();
 					SearchEmitter.emit("render:finish");
 					return;
@@ -170,4 +199,29 @@ export const SearchControllerQuery = (input) => DBQuery(input, DBCache);
  */
 export const SearchControllerValidate = (input) => {
 	return StringSanitize(input).length > 0;
+};
+
+/**
+ * INTENRAL: Sanitizes the value for browser URL.
+ * @param {string} value - The value
+ */
+const BrowserSanitize = (value) => {
+	return encodeURIComponent(value.trim().toLowerCase().replace(/\s+/g, "+"));
+};
+
+/**
+ * Updates the URL with the current query.
+ * @param {string} query - The query
+ */
+export const SearchControllerUpdateURL = (query) => {
+	const params = new URLSearchParams(window.location.search);
+	query = BrowserSanitize(query);
+
+	if (query && query.length > 0) {
+		params.set("q", query);
+	} else {
+		params.delete("q");
+	}
+
+	history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
 };

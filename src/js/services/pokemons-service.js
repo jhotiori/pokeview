@@ -6,7 +6,7 @@
 
 import { APIGetPokemonByNameAsync, APIPokedex } from "../api/pokeapi.js";
 import { StringCapitalize } from "../utils/string-utils.js";
-import { ErrorExpect } from "../utils/error-utils.js";
+import { ErrorExpect, ErrorUnwrap } from "../utils/error-utils.js";
 import { Logger } from "../libs/logger.js";
 
 const InformationCache = new WeakMap();
@@ -137,9 +137,18 @@ export const PokemonServiceGetInformation = (pokemon) => {
 export const PokemonServiceGetEvolutions = async (pokemon) => {
 	ErrorExpect(typeof pokemon === "object", "Expected a valid Pokemon object!");
 	if (EvolutionCache.has(pokemon)) return EvolutionCache.get(pokemon);
-	PokemonServiceLogger.info("Pokemon received:", pokemon);
 
-	const species = await APIPokedex.getPokemonSpeciesByName(pokemon.name);
+	// Normalize name before getting specie
+	const baseName = pokemon?.species?.name ?? pokemon?.name?.split("-")[0];
+	let species;
+
+	try {
+		species = await APIPokedex.getPokemonSpeciesByName(baseName);
+	} catch (err) {
+		PokemonServiceLogger.warn(`Species not found for "${pokemon.name}" (Error: ${ErrorUnwrap(err)})`);
+		return null; // or return {}; depends on your UI
+	}
+
 	if (!species || !species.evolution_chain?.url) return;
 
 	const url = species.evolution_chain.url;
@@ -163,8 +172,8 @@ export const PokemonServiceGetEvolutions = async (pokemon) => {
 		}),
 	);
 
-	PokemonServiceLogger.info("Evolutions retrieved:", evolutions);
-
+	PokemonServiceLogger.info(`Evolutions retrieved for ${pokemon.name}:`, evolutions);
 	EvolutionCache.set(pokemon, evolutions);
+
 	return evolutions;
 };
